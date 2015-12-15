@@ -1,0 +1,58 @@
+start = screenplay
+screenplay =
+    element screenplay {
+        mixed { title, screenwriter, cast_list, script }
+    }
+title = attribute title { "PULP FICTION" | "INGLOURIOUS BASTERDS" | "DJANGO UNCHAINED" }
+screenwriter = element screenwriter { text }
+cast_list = element cast_list { cast_group }
+cast_group = element cast_group { cast_item* }
+cast_item = element cast_item { role*, actor* }
+role =
+    element role {
+        mixed { id, gender }
+    }
+id = attribute xml:id { xsd:ID }*
+gender = attribute gender { "m" | "f" | "m f" }
+# would that work for multiple genders?
+actor = element actor { text }
+script = element script { setup*, scene* }
+setup = element setup { text }
+scene = element scene { location, (action_block* | dialogue*)* }
+location = element location { text }
+action_block =
+    element action_block {
+        mixed { (location* | (curse | slur)*)* }
+    }
+dialogue =
+    element dialogue {
+        mixed { off_screen, ref, DOcharacter*, (action_block* | curse* | slur*)* }
+    }
+off_screen = attribute off_screen { "yes" | "no" }
+ref = attribute ref { xsd:IDREF }
+DOcharacter = attribute DOcharacter {xsd:IDREFS}
+# BELOW IS CONTEXTUAL MARK UP 
+curse = element curse { text, type, pos }
+type =
+    attribute type {
+        "fuck"
+        | "shit"
+        | "pussy"
+        | "damn"
+        | "goddamn"
+        | "bitch"
+        | "ass"
+        | "motherfuck"
+        | "dick"
+        | "nigger"
+        | "fag"
+        | "cunt"
+        | "bitch"
+        | "sonsabitches"
+        | "bastard"
+        | "slut"
+        | "jew"
+    }
+pos = attribute pos { "verb" | "noun" | "adj" | "adv" }
+slur = element slur { text, type }
+
